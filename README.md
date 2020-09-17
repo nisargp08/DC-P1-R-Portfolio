@@ -1,24 +1,30 @@
-# dc-p1-r-my_team_page
+<!-- Please update value in the {}  -->
 
-## Project setup
-```
-npm install
-```
+<h1 align="center">Portfolio</h1>
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+<div align="center">
+   Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>.
+</div>
 
-### Compiles and minifies for production
-```
-npm run build
-```
+<div align="center">
+  <h3>
+    <a href="https://nisarg-patel.netlify.app/">
+      Demo
+    </a>
+  </h3>
+</div>
 
-### Lints and fixes files
-```
-npm run lint
-```
+<!-- OVERVIEW -->
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Overview
+
+![screenshot](./screenshot.png)
+
+
+### Built With
+
+<!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
+
+- [Vue.js](https://vuejs.org/)
+- [Tailwind](https://tailwindcss.com/)
+
