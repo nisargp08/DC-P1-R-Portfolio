@@ -1,3 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
+
+.card {
+    @apply bg-white rounded-12px shadow-white m-4 p-5
+}
+.heading{
+    @apply font-primary font-semibold text-2xl leading-7 text-gray-2
+}
+.subHeading {
+    @apply font-primary font-medium text-lg text-gray-3 leading-6
+}
+.info {
+    @apply font-primary font-medium text-lg text-gray-2 leading-6
+}
+
 @tailwind utilities;

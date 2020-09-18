@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <app-index></app-index>
   </div>
 </template>
 
@@ -8,6 +9,7 @@
 export default {
   name: 'App',
   components: {
+    'appIndex' : () => import('@/Views/index')
   }
 }
 </script>
