@@ -1,17 +1,22 @@
 <template>
 <div class="min-h-screen lg:max-w-screen-lg lg:mx-auto">
-    <app-user-details :data="userData"></app-user-details>
-    <app-user-experience :data="userExperience"></app-user-experience>
-    <div class="lg:flex">
-    <div class="lg:flex lg:flex-col lg:max-w-sm">
-        <app-user-skills :data="userSkills"></app-user-skills>
-        <app-user-hobbies :data="userHobbies"></app-user-hobbies>
-    </div>
-    <div class="lg:flex lg:flex-col">
-    <app-user-blogs :data="userBlogs"></app-user-blogs>
-    <app-user-projects :data="userProjects"></app-user-projects>
-    </div>
-    </div>
+    <template v-if="isLanding">
+        <app-user-details :data="userData"></app-user-details>
+        <app-user-experience :data="userExperience"></app-user-experience>
+        <div class="lg:flex">
+            <div class="lg:flex lg:flex-col lg:max-w-sm">
+                <app-user-skills :data="userSkills"></app-user-skills>
+                <app-user-hobbies :data="userHobbies"></app-user-hobbies>
+            </div>
+            <div class="lg:flex lg:flex-col">
+                <app-user-projects @all-projects="changeComponent('app-all-projects')" :data="userProjects"></app-user-projects>
+                <app-user-blogs :data="userBlogs"></app-user-blogs>
+            </div>
+        </div>
+    </template>
+    <!-- Dynamic Component Calling to see all projects -->
+    <!-- WIll display the component set in 'curretComponent' variable  and will pass props defined in computed method 'componentProps'-->
+    <component :is="currentComponent" v-bind="currentProperties"></component>
 </div>
 </template>
 
@@ -25,9 +30,14 @@ export default {
         'appUserBlogs': () => import('@/components/UserBlogs'),
         'appUserHobbies': () => import('@/components/UserHobbies'),
         'appUserProjects': () => import('@/components/UserProjects'),
+        'appAllProjects': () => import('@/components/AllProjects'),
     },
     data() {
         return {
+            //To show index page - True by default
+            isLanding: true,
+            //Current active component
+            currentComponent: '',
             userData: {
                 profilePhoto: 'nisarg/kunkka.png',
                 name: 'Nisarg Patel',
@@ -128,41 +138,72 @@ export default {
                     description: 'Always learning about how I can improve my design thinking and practices'
                 },
             ],
-            userProjects : [
-                {
-                    title : 'Edie - Landing Page',
-                    description : `
+            userProjects: [{
+                    title: 'Edie - Landing Page',
+                    description: `
                     <p>A simple and modern looking landing page built using tailwind css and Vue.js</p>
                     <p>This challenge is a part of responsive path challenges on devchallenges.io</p>
                     `,
-                    tags : ['Responsive','Tailwind','Vue.js'],
-                    photo : 'nisarg/edie.png',
-                    demoUrl : 'https://devchallenges-edie.netlify.app/',
-                    codeUrl : 'https://github.com/nisargp08/DC-P1-R-Edie',
+                    tags: ['Responsive', 'Tailwind', 'Vue.js'],
+                    photo: 'nisarg/edie.png',
+                    demoUrl: 'https://devchallenges-edie.netlify.app/',
+                    codeUrl: 'https://github.com/nisargp08/DC-P1-R-Edie',
                 },
                 {
-                    title : 'Checkout Form Page',
-                    description : `
+                    title: 'Checkout Form Page',
+                    description: `
                     <p>A simple and modern looking checkout form built using tailwind css and Vue.js</p>
                     <p>This challenge is a part of responsive path challenges on devchallenges.io</p>
                     `,
-                    tags : ['Responsive','Tailwind','Vue.js'],
-                    photo : 'nisarg/checkout.png',
-                    demoUrl : 'https://devchallenges-checkout-form.netlify.app/',
-                    codeUrl : 'https://github.com/nisargp08/DC-P1-R-Checkout-Form',
+                    tags: ['Responsive', 'Tailwind', 'Vue.js'],
+                    photo: 'nisarg/checkout.png',
+                    demoUrl: 'https://devchallenges-checkout-form.netlify.app/',
+                    codeUrl: 'https://github.com/nisargp08/DC-P1-R-Checkout-Form',
                 },
                 {
-                    title : 'Condition Builder',
-                    description : `
+                    title: 'Condition Builder',
+                    description: `
                     <p>Query/Condition builder built using Vue.js</p>
                     <p>Can be used in conjunction with a backend DB to control conditioning for a page or a form. Has functionalities like 'AND|OR', Nested Groups,Parent-Child colors</p>
                     `,
-                    tags : ['Vue.js'],
-                    photo : 'nisarg/condition.png',
-                    demoUrl : 'https://condition-filter.netlify.app/',
-                    codeUrl : 'https://github.com/nisargp08/conditioner-builder',
+                    tags: ['Vue.js', 'Laravel'],
+                    photo: 'nisarg/condition.png',
+                    demoUrl: '',
+                    codeUrl: 'https://github.com/nisargp08/conditioner-builder',
                 },
             ],
+        }
+    },
+    methods: {
+        //To change the current component to passed value
+        changeComponent(value) {
+            if (value != '') {
+                this.currentComponent = value;
+            } else {
+                this.currentComponent = '';
+            }
+        },
+    },
+    computed: {
+        currentProperties() {
+            if (this.currentComponent === 'app-all-projects') {
+                return {
+                    userInfo: this.userData,
+                    projects: this.userProjects
+                };
+            } else {
+                return '';
+            }
+        }
+    },
+    watch: {
+        // Hide landing page when component changed
+        currentComponent() {
+            if (this.currentComponent != '') {
+                this.isLanding = false;
+            } else {
+                this.isLanding = true;
+            }
         }
     }
 }
