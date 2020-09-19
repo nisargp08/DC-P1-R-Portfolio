@@ -1,5 +1,5 @@
 <template>
-<div class="user-skills-component lg:max-w-sm">
+<div class="user-skills-component">
     <div class="card">
         <h3 class="font-primary font-bold text-lg uppercase text-gray-2 leading-5">front end</h3>
         <div class="mt-4">

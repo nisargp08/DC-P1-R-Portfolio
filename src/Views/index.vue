@@ -3,10 +3,15 @@
     <app-user-details :data="userData"></app-user-details>
     <app-user-experience :data="userExperience"></app-user-experience>
     <div class="lg:flex">
-        <app-user-skills class="lg:w-1/2" :data="userSkills"></app-user-skills>
-        <app-user-blogs class="lg:w-1/2 lg:w-full" :data="userBlogs"></app-user-blogs>
-    </div>
+    <div class="lg:flex lg:flex-col lg:max-w-sm">
+        <app-user-skills :data="userSkills"></app-user-skills>
         <app-user-hobbies :data="userHobbies"></app-user-hobbies>
+    </div>
+    <div class="lg:flex lg:flex-col">
+    <app-user-blogs :data="userBlogs"></app-user-blogs>
+    <app-user-projects :data="userProjects"></app-user-projects>
+    </div>
+    </div>
 </div>
 </template>
 
@@ -19,6 +24,7 @@ export default {
         'appUserExperience': () => import('@/components/UserExperience'),
         'appUserBlogs': () => import('@/components/UserBlogs'),
         'appUserHobbies': () => import('@/components/UserHobbies'),
+        'appUserProjects': () => import('@/components/UserProjects'),
     },
     data() {
         return {
@@ -106,23 +112,57 @@ export default {
                     <p>If you are maintaining product related data in a dedicate vuex module, you can dispatch an action from the method in component, which will internally call the backend API and populate data in the store, code will look something like following...</p>
                     `,
             }],
-            userHobbies : [
-                {
-                    title : 'Gaming',
-                    photo : 'nisarg/gaming.jpg',
-                    description : 'Multiplayer games like DOTA2,COD,Rocket League...'
+            userHobbies: [{
+                    title: 'Gaming',
+                    photo: 'nisarg/gaming.jpg',
+                    description: 'Multiplayer games like DOTA2,COD,Rocket League...'
                 },
                 {
-                    title : 'Guitar,Music & Podcasts',
-                    photo : 'nisarg/guitar.jpg',
-                    description : 'Definitely not a pro at playing guitar yet ! But can play few beautiful sounding melodies😆'
+                    title: 'Guitar,Music & Podcasts',
+                    photo: 'nisarg/guitar.jpg',
+                    description: 'Definitely not a pro at playing guitar yet ! But can play few beautiful sounding melodies😆'
                 },
                 {
-                    title : 'Learning/Programming',
-                    photo : 'nisarg/learning.jpg',
-                    description : 'Always learning on how I can improve my design thinking and practices'
+                    title: 'Learning/Programming',
+                    photo: 'nisarg/learning.jpg',
+                    description: 'Always learning about how I can improve my design thinking and practices'
                 },
-            ]
+            ],
+            userProjects : [
+                {
+                    title : 'Edie - Landing Page',
+                    description : `
+                    <p>A simple and modern looking landing page built using tailwind css and Vue.js</p>
+                    <p>This challenge is a part of responsive path challenges on devchallenges.io</p>
+                    `,
+                    tags : ['Responsive','Tailwind','Vue.js'],
+                    photo : 'nisarg/edie.png',
+                    demoUrl : 'https://devchallenges-edie.netlify.app/',
+                    codeUrl : 'https://github.com/nisargp08/DC-P1-R-Edie',
+                },
+                {
+                    title : 'Checkout Form Page',
+                    description : `
+                    <p>A simple and modern looking checkout form built using tailwind css and Vue.js</p>
+                    <p>This challenge is a part of responsive path challenges on devchallenges.io</p>
+                    `,
+                    tags : ['Responsive','Tailwind','Vue.js'],
+                    photo : 'nisarg/checkout.png',
+                    demoUrl : 'https://devchallenges-checkout-form.netlify.app/',
+                    codeUrl : 'https://github.com/nisargp08/DC-P1-R-Checkout-Form',
+                },
+                {
+                    title : 'Condition Builder',
+                    description : `
+                    <p>Query/Condition builder built using Vue.js</p>
+                    <p>Can be used in conjunction with a backend DB to control conditioning for a page or a form. Has functionalities like 'AND|OR', Nested Groups,Parent-Child colors</p>
+                    `,
+                    tags : ['Vue.js'],
+                    photo : 'nisarg/condition.png',
+                    demoUrl : 'https://condition-filter.netlify.app/',
+                    codeUrl : 'https://github.com/nisargp08/conditioner-builder',
+                },
+            ],
         }
     }
 }

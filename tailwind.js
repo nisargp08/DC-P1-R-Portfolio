@@ -13,6 +13,10 @@ module.exports = {
         'gray-3' : '#828282',
         'gray-4' : '#E0E0E0',
         'black-1' : '#333333',
+        'blue-1' : 'rgb(47,128,237)',
+      },
+      borderColor : {
+        'blue-1' : 'rgb(47,128,237)'
       },
       backgroundColor : {
         'gray-1' : '#C4C4C4',

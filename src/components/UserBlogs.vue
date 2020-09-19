@@ -1,10 +1,10 @@
 <template>
-<div class="user-blogs-component">
+<div class="user-blogs-component lg:w-1/2 lg:w-full">
     <div class="card">
         <p class="font-primary font-medium text-lg leading-5 text-gray-2">Blogs ({{ data.length }})</p>
     </div>
-    <div class="card">
-        <div v-for="(blog,index) in data" :key="index" class="flex flex-col items-center justify-center">
+    <div>
+        <div v-for="(blog,index) in data" :key="index" class="flex flex-col items-center justify-center card">
             <div class="p-8 md:max-w-sm">
                 <!-- Blog Banner image -->
                 <img :src="require(`@/assets/images/${blog.blogBanner}`)" :alt="blog.title">
