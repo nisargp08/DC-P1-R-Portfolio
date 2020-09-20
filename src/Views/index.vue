@@ -1,22 +1,17 @@
 <template>
 <div class="min-h-screen lg:max-w-screen-lg lg:mx-auto">
-    <template v-if="isLanding">
-        <app-user-details :data="userData"></app-user-details>
-        <app-user-experience :data="userExperience"></app-user-experience>
-        <div class="lg:flex">
-            <div class="lg:flex lg:flex-col lg:max-w-sm">
-                <app-user-skills :data="userSkills"></app-user-skills>
-                <app-user-hobbies :data="userHobbies"></app-user-hobbies>
-            </div>
-            <div class="lg:flex lg:flex-col">
-                <app-user-projects @all-projects="changeComponent('app-all-projects')" :data="userProjects"></app-user-projects>
-                <app-user-blogs :data="userBlogs"></app-user-blogs>
-            </div>
+    <app-user-details :data="userData"></app-user-details>
+    <app-user-experience :data="userExperience"></app-user-experience>
+    <div class="lg:flex">
+        <div class="lg:flex lg:flex-col lg:max-w-sm">
+            <app-user-skills :data="userSkills"></app-user-skills>
+            <app-user-hobbies :data="userHobbies"></app-user-hobbies>
         </div>
-    </template>
-    <!-- Dynamic Component Calling to see all projects -->
-    <!-- WIll display the component set in 'curretComponent' variable  and will pass props defined in computed method 'componentProps'-->
-    <component :is="currentComponent" v-bind="currentProperties"></component>
+        <div class="lg:flex lg:flex-col">
+            <app-user-projects :data="userProjects"></app-user-projects>
+            <app-user-blogs :data="userBlogs"></app-user-blogs>
+        </div>
+    </div>
 </div>
 </template>
 
@@ -30,14 +25,9 @@ export default {
         'appUserBlogs': () => import('@/components/UserBlogs'),
         'appUserHobbies': () => import('@/components/UserHobbies'),
         'appUserProjects': () => import('@/components/UserProjects'),
-        'appAllProjects': () => import('@/components/AllProjects'),
     },
     data() {
         return {
-            //To show index page - True by default
-            isLanding: true,
-            //Current active component
-            currentComponent: '',
             userData: {
                 profilePhoto: 'nisarg/kunkka.png',
                 name: 'Nisarg Patel',
@@ -172,38 +162,6 @@ export default {
                     codeUrl: 'https://github.com/nisargp08/conditioner-builder',
                 },
             ],
-        }
-    },
-    methods: {
-        //To change the current component to passed value
-        changeComponent(value) {
-            if (value != '') {
-                this.currentComponent = value;
-            } else {
-                this.currentComponent = '';
-            }
-        },
-    },
-    computed: {
-        currentProperties() {
-            if (this.currentComponent === 'app-all-projects') {
-                return {
-                    userInfo: this.userData,
-                    projects: this.userProjects
-                };
-            } else {
-                return '';
-            }
-        }
-    },
-    watch: {
-        // Hide landing page when component changed
-        currentComponent() {
-            if (this.currentComponent != '') {
-                this.isLanding = false;
-            } else {
-                this.isLanding = true;
-            }
         }
     }
 }

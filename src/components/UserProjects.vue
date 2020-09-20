@@ -1,14 +1,14 @@
 <template>
-<div class="user-projects-component">
+<div class="user-projects-component lg:max-w-screen-lg lg:mx-auto">
     <div class="card">
-        <div role="button" v-if="orientation" class="bg-gray-300 inline-block rounded-md p-2 mb-2">
+        <router-link to="/" role="button" v-if="orientation" class="bg-gray-300 inline-block rounded-md p-2 mb-2">
             <svg class="w-4 h-4 fill-current text-gray-800" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.445 14.832A1 1 0 0010 14v-2.798l5.445 3.63A1 1 0 0017 14V6a1 1 0 00-1.555-.832L10 8.798V6a1 1 0 00-1.555-.832l-6 4a1 1 0 000 1.664l6 4z"></path>
             </svg>
-        </div>
+        </router-link>
         <div class="flex flex-wrap items-center justify-between">
             <p class="font-primary font-medium text-lg leading-5 text-gray-2">Projects ({{ data.length }})</p>
-            <button v-if="!orientation" @click="allProjects" class="tag tag-text bg-gray-700 text-white hover:bg-gray-800 focus:outline-none">
+            <button @click="allProjects" v-if="!orientation" class="tag tag-text bg-gray-700 text-white hover:bg-gray-800 focus:outline-none">
                 <svg class="w-6 h-6 inline-block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z"></path>
                     <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"></path>
@@ -30,12 +30,17 @@
             </button>
         </div>
     </div>
-    <div>
-        <div v-for="(project,index) in filteredProjects" :key="index" class="card lg:flex lg:items-center">
-            <div class="lg:w-1/2">
+    <!-- Changing orientation when props is true -->
+    <div :class="{'lg:flex lg:flex-wrap lg:items-center lg:justify-center' : orientation}">
+        <div class="card lg:flex lg:items-center"
+         v-for="(project,index) in filteredProjects" 
+         :key="index"
+         :class="{'lg:flex-col lg:w-2/5' : orientation}" 
+        >
+            <div class="lg:w-1/2" :class="{'lg:w-full' : orientation}">
                 <img class="h-64 rounded-12px object-contain mx-auto" :src="require(`@/assets/images/${project.photo}`)" :alt="project.title">
             </div>
-            <div class="mt-6 lg:w-1/2 p-4">
+            <div class="mt-6 lg:w-1/2 p-4" :class="{'lg:w-full' : orientation}">
                 <h3 class="font-primary font-semibold text-xl text-black-1 leading-7">{{ project.title }}</h3>
                 <div class="mt-4">
                     <p class="font-primary font-medium text-sm leading-5 text-gray-3" v-html="project.description"></p>
@@ -66,7 +71,7 @@ export default {
             required: true,
         },
         orientation: {
-            type: String,
+            type: Boolean,
             required: false,
         }
     },
@@ -75,11 +80,15 @@ export default {
             selectedTag: '',
         }
     },
-    methods: {
-        allProjects() {
-            //Emit this click to parent
-            this.$emit('all-projects');
-        },
+    methods : {
+        allProjects (){
+            this.$router.push({
+                name : 'Projects',
+                params : { 
+                    projects : this.data,
+                }
+            });
+        }
     },
     computed: {
         //To return a list of unique tags from the project

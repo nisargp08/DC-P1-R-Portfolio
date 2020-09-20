@@ -1,18 +1,8 @@
 <template>
   <div id="app">
-    <app-index></app-index>
+    <router-view/>
   </div>
 </template>
-
-<script>
-
-export default {
-  name: 'App',
-  components: {
-    'appIndex' : () => import('@/Views/index')
-  }
-}
-</script>
 
 <style lang="scss">
 #app {
