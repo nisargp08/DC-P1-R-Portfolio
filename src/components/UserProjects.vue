@@ -34,7 +34,7 @@
     <div :class="{'lg:flex lg:flex-wrap lg:items-center lg:justify-center' : orientation}">
         <div class="card lg:flex lg:items-center" v-for="(project,index) in filteredProjects" :key="index" :class="{'lg:flex-col lg:w-2/5' : orientation}">
             <div class="lg:w-1/2" :class="{'lg:w-full' : orientation}">
-                <img class="h-64 rounded-12px object-contain mx-auto" :src="projectPhoto(index)" :alt="project.title">
+                <img class="h-64 rounded-12px object-contain mx-auto" :src="require(`@/assets/images/${project.photo}`)" :alt="project.title">
             </div>
             <div class="mt-6 lg:w-1/2 p-4" :class="{'lg:w-full' : orientation}">
                 <h3 class="font-primary font-semibold text-xl text-black-1 leading-7">{{ project.title }}</h3>
@@ -78,23 +78,17 @@ export default {
             data: '',
         }
     },
-    methods: {
-        //To resolve webpack dynamic image import
-        projectPhoto(index) {
-            return this.data[index].photo && require(`@/assets/images/${this.data[index].photo}`);
-        }
-    },
     computed: {
         //To return a list of unique tags from the project
         filteredTags() {
             let uniqueTags = [],
                 allTags = [];
             //Looping through the data to get unique tags from the list
-            this.data.forEach(project => {
-                project.tags.forEach(tag => {
+            Object.values(this.data).forEach(project => {
+                Object.values(project.tags).forEach(tag => {
                     allTags.push(tag);
                 });
-            });
+            })
             //'Set' function will remove all the duplicates from the array and return only unique values
             //Since 'Set' function return an object 'Array.from' function will convert recieved object into an array
             uniqueTags = Array.from(new Set(allTags));
@@ -108,9 +102,9 @@ export default {
             } else {
                 let filteredProjects = [];
                 //Looping through all the projects to find the clicked tag
-                this.data.forEach(project => {
+                Object.values(this.data).forEach(project => {
                     //Returning projects that match the tag
-                    project.tags.forEach(tag => {
+                    Object.values(project.tags).forEach(tag => {
                         if (tag === this.selectedTag) {
                             filteredProjects.push(project);
                         }
