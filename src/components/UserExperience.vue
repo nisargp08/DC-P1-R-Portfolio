@@ -21,12 +21,16 @@
 <script>
 export default {
     name : 'userExperience',
-     props: {
-        data: {
-            type: Array,
-            required: true,
+    mounted(){
+        //Fetching details from store state
+        this.data = this.$store.state.userExperience;
+    },
+    data(){
+        return{
+            //Experience
+            data : '',
         }
-    }
+    },
 }
 </script>
 

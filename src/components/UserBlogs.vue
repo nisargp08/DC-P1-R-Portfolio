@@ -28,12 +28,16 @@
 <script>
 export default {
     name: 'userBlogs',
-    props: {
-        data: {
-            type: Array,
-            required: true,
+    mounted(){
+        //Fetching details from store state
+        this.data = this.$store.state.userBlogs;
+    },
+    data(){
+        return{
+            //Blogs
+            data : '',
         }
-    }
+    },
 }
 </script>
 

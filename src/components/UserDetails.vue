@@ -49,10 +49,14 @@
 <script>
 export default {
     name: "userDetails",
-    props: {
-        data: {
-            type: Object,
-            required: true,
+    mounted(){
+        //Fetching details from store state
+        this.data = this.$store.state.userData;
+    },
+    data(){
+        return{
+            //User Details
+            data : '',
         }
     }
 }

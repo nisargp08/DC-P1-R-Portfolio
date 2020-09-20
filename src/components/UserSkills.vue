@@ -25,10 +25,14 @@
 <script>
 export default {
     name: "userSkills",
-    props: {
-        data: {
-            type: Array,
-            required: true,
+    mounted(){
+        //Fetching details from store state
+        this.data = this.$store.state.userSkills;
+    },
+    data(){
+        return {
+            //Skills
+            data : '',
         }
     },
     methods: {

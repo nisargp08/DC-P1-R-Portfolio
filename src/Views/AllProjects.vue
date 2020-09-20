@@ -1,7 +1,7 @@
 <template>
-<div class="all-projects-component">
-    <!-- <app-user-details :data="userInfo"></app-user-details> -->
-    <app-user-projects :orientation="true" :data="projects"></app-user-projects>
+<div class="all-projects-component lg:max-w-screen-lg lg:mx-auto">
+    <app-user-details></app-user-details>
+    <app-user-projects :orientation="true"></app-user-projects>
 </div>
 </template>
 
@@ -11,18 +11,8 @@ export default {
     created(){
         window.scrollTo(0,0);
     },
-    props: {
-    //     // userInfo: {
-    //     //     type: Object,
-    //     //     required: true,
-    //     // },
-        projects: {
-            type: Array,
-            required: true,
-        },
-    },
     components : {
-        // 'appUserDetails': () => import('@/components/UserDetails'),
+        'appUserDetails': () => import('@/components/UserDetails'),
         'appUserProjects': () => import('@/components/UserProjects'),
     },
 }

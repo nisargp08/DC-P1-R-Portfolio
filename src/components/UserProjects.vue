@@ -1,20 +1,20 @@
 <template>
-<div class="user-projects-component lg:max-w-screen-lg lg:mx-auto">
+<div class="user-projects-component">
     <div class="card">
-        <router-link to="/" role="button" v-if="orientation" class="bg-gray-300 inline-block rounded-md p-2 mb-2">
+        <router-link :to="{ name : 'Home' }" role="button" v-if="orientation" class="bg-gray-300 inline-block rounded-md p-2 mb-2">
             <svg class="w-4 h-4 fill-current text-gray-800" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.445 14.832A1 1 0 0010 14v-2.798l5.445 3.63A1 1 0 0017 14V6a1 1 0 00-1.555-.832L10 8.798V6a1 1 0 00-1.555-.832l-6 4a1 1 0 000 1.664l6 4z"></path>
             </svg>
         </router-link>
         <div class="flex flex-wrap items-center justify-between">
             <p class="font-primary font-medium text-lg leading-5 text-gray-2">Projects ({{ data.length }})</p>
-            <button @click="allProjects" v-if="!orientation" class="tag tag-text bg-gray-700 text-white hover:bg-gray-800 focus:outline-none">
+            <router-link :to="{ name : 'Projects' }" v-if="!orientation" class="tag tag-text bg-gray-700 text-white hover:bg-gray-800 focus:outline-none">
                 <svg class="w-6 h-6 inline-block" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z"></path>
                     <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"></path>
                 </svg>
                 All Projects
-            </button>
+            </router-link>
         </div>
         <div class="flex flex-wrap mt-4">
             <div :class="{'bg-blue-900 hover:bg-blue-900' : tag == selectedTag }" @click="selectedTag = tag" role="button" v-for="(tag,index) in filteredTags" :key="index" class="tag">
@@ -65,11 +65,11 @@
 <script>
 export default {
     name: 'userProjects',
+    mounted(){
+        //Fetching details from store state
+        this.data = this.$store.state.userProjects;
+    },
     props: {
-        data: {
-            type: Array,
-            required: true,
-        },
         orientation: {
             type: Boolean,
             required: false,
@@ -78,16 +78,8 @@ export default {
     data() {
         return {
             selectedTag: '',
-        }
-    },
-    methods : {
-        allProjects (){
-            this.$router.push({
-                name : 'Projects',
-                params : { 
-                    projects : this.data,
-                }
-            });
+            //Projects
+            data : '',
         }
     },
     computed: {

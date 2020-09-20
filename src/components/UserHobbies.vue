@@ -18,12 +18,16 @@
 <script>
 export default {
     name: "userSkills",
-    props: {  
-        data: {
-            type: Array,
-            required: true,
-        }
+    mounted(){
+        //Fetching details from store state
+        this.data = this.$store.state.userHobbies;
     },
+    data(){
+        return{
+            //Hobbies
+            data : ''
+        }
+    }
 }
 </script>
 
