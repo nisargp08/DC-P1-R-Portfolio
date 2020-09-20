@@ -3,7 +3,7 @@
     <div class="flex flex-col items-center card md:flex-row md:p-3 lg:items-start">
         <!-- Profile Image -->
         <div class="md:w-1/2">
-            <img class="rounded-12px" :src="require(`@/assets/images/${data.profilePhoto}`)" :alt="data.name">
+            <img class="rounded-12px" :src="userPhoto" :alt="data.name">
         </div>
         <!-- User Information -->
         <div class="mt-6 md:px-8">
@@ -49,14 +49,20 @@
 <script>
 export default {
     name: "userDetails",
-    mounted(){
+    mounted() {
         //Fetching details from store state
         this.data = this.$store.state.userData;
     },
-    data(){
-        return{
+    data() {
+        return {
             //User Details
-            data : '',
+            data: '',
+        }
+    },
+    computed: {
+        userPhoto() {
+            //To resolve webpack image import for dynamic images
+            return this.data.profilePhoto && require(`@/assets/images/${this.data.profilePhoto}`);            
         }
     }
 }

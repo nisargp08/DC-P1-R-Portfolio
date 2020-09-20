@@ -32,13 +32,9 @@
     </div>
     <!-- Changing orientation when props is true -->
     <div :class="{'lg:flex lg:flex-wrap lg:items-center lg:justify-center' : orientation}">
-        <div class="card lg:flex lg:items-center"
-         v-for="(project,index) in filteredProjects" 
-         :key="index"
-         :class="{'lg:flex-col lg:w-2/5' : orientation}" 
-        >
+        <div class="card lg:flex lg:items-center" v-for="(project,index) in filteredProjects" :key="index" :class="{'lg:flex-col lg:w-2/5' : orientation}">
             <div class="lg:w-1/2" :class="{'lg:w-full' : orientation}">
-                <img class="h-64 rounded-12px object-contain mx-auto" :src="require(`@/assets/images/${project.photo}`)" :alt="project.title">
+                <img class="h-64 rounded-12px object-contain mx-auto" :src="projectPhoto(index)" :alt="project.title">
             </div>
             <div class="mt-6 lg:w-1/2 p-4" :class="{'lg:w-full' : orientation}">
                 <h3 class="font-primary font-semibold text-xl text-black-1 leading-7">{{ project.title }}</h3>
@@ -65,7 +61,7 @@
 <script>
 export default {
     name: 'userProjects',
-    mounted(){
+    mounted() {
         //Fetching details from store state
         this.data = this.$store.state.userProjects;
     },
@@ -79,7 +75,13 @@ export default {
         return {
             selectedTag: '',
             //Projects
-            data : '',
+            data: '',
+        }
+    },
+    methods: {
+        //To resolve webpack dynamic image import
+        projectPhoto(index) {
+            return this.data[index].photo && require(`@/assets/images/${this.data[index].photo}`);
         }
     },
     computed: {
@@ -116,7 +118,7 @@ export default {
                 })
                 return filteredProjects;
             }
-        }
+        },
     }
 }
 </script>
